@@ -3,12 +3,12 @@ from django.conf import settings
 class Account(models.Model):
     name = models.CharField(max_length=255)
     balance = models.IntegerField()
-    user = models.ForeignKey(settings.AUTH_USER_Model, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
 class Category(models.Model):
     name = models.CharField(max_length=255)
     balance = models.IntegerField()
-    user = models.ForeignKey(settings.AUTH_USER_Model, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
 class AssetLiability(models.Model):
     name = models.CharField(max_length=255)
@@ -21,7 +21,7 @@ class AssetLiability(models.Model):
         (liability, 'liability')
     )
     type = models.CharField(choices = choices, max_length=9)
-    value = models.DecimalField()
+    value = models.DecimalField(max_digits = 4, decimal_places = 2)
     period = models.IntegerField()
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING)
     account = models.ForeignKey(Account, on_delete=models.DO_NOTHING)
@@ -29,7 +29,7 @@ class AssetLiability(models.Model):
 class Transaction(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING)
     account = models.ForeignKey(Account, on_delete=models.DO_NOTHING)
-    value = models.DecimalField()
+    value = models.DecimalField(max_digits = 4, decimal_places = 2)
     income = 'income'
     expence = 'expence'
     choices = (
