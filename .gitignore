@@ -1,4 +1,5 @@
 db.sqlite3
+finance_manager/__pycache__/
 venv/
 *.pyc
 
