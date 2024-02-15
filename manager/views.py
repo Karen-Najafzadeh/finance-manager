@@ -1,3 +1,4 @@
+from decimal import Decimal
 from django.core.exceptions import PermissionDenied
 from rest_framework.decorators import api_view, action
 from rest_framework.viewsets import ModelViewSet, ViewSet
@@ -47,10 +48,29 @@ class TransactionListCreateView(ListCreateAPIView):
             return models.Transaction.objects.filter(user_id=self.request.user.id)
         else:
             raise PermissionDenied
-    serializer_class = serializers.TransactionSerializer
+    
+    # def create(self, request, *args, **kwargs):
+    #     account = models.Account.objects.get(id = self.request.data['account'])
+    #     category = models.Category.objects.get(id = self.request.data['category'])
+    #     serializer = serializers.TransactionSerializer(data = request.data)
+    #     serializer.is_valid(raise_exception=True)
+    #     serializer.validated_data
+    #     account.balance += Decimal(self.request.data['value'])
+    #     category.balance += Decimal(self.request.data['value'])
+    #     serializer.save()
+    #     account.save()
+    #     category.save()
+    #     print( f"this is create view {account}, {category}")
+    #     return Response('created')
 
     def get_serializer_context(self):
-        return {'user_id':self.request.user.id}
+        account = models.Account.objects.get(id = self.request.data['account'])
+        category = models.Category.objects.get(id = self.request.data['category'])
+        value = self.request.data['value']
+        transaction_type = self.request.data['type']
+        return {'user_id':self.request.user.id, 'account':account, 'category':category,'value':value,'transaction_type':transaction_type}
+    
+    serializer_class = serializers.TransactionSerializer
 
 class TransactionsRetrieveDestroyAPIView(RetrieveDestroyAPIView):
     def get_queryset(self):
