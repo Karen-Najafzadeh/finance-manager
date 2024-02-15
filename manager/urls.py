@@ -4,8 +4,12 @@ from . import views
 
 
 router = DefaultRouter()
-router.register('',views.Home)
+router.register('accounts',views.Accounts, basename='all_accounts')
 
 urlpatterns = [
-    path('',include(router.urls))
+    path('',include(router.urls)),
+    path('categories/', views.CategoriesListCreateView.as_view(), name='category_list'),
+    path('categories/<int:pk>/', views.CategoriesRetrieveDestroyAPIView.as_view(), name='category_detail'),
+    path('transactions/', views.TransactionListCreateView.as_view(), name = 'transaction_list'),
+    path('transactions/<int:pk>/', views.TransactionsRetrieveDestroyAPIView.as_view(), name = 'transaction_detail')
 ]
