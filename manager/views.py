@@ -75,11 +75,7 @@ class TransactionListCreateView(ListCreateAPIView):
             raise PermissionDenied
 
     def get_serializer_context(self):
-        account = models.Account.objects.get(id = self.request.data['account'])
-        category = models.Category.objects.get(id = self.request.data['category'])
-        value = self.request.data['value']
-        transaction_type = self.request.data['type']
-        return {'user_id':self.request.user.id, 'account':account, 'category':category,'value':value,'transaction_type':transaction_type}
+        return {'user_id':self.request.user.id}
     
     serializer_class = serializers.TransactionSerializer
 

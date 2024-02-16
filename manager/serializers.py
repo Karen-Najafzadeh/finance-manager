@@ -44,27 +44,9 @@ class TransactionSerializer(ModelSerializer):
         model = models.Transaction
         fields = ['id','value','type','description','date','account','category']
     
-    #gets the data from the context dictionary and updates the category and account balance
+    # here we assign the user id to the newly created transaction instance, automatically 
     def create(self, validated_data):
-
-        #getting the data
         user_id = self.context['user_id']
-        account = self.context['account']
-        category = self.context['category']
-        value = Decimal(self.context['value'])
-        transaction_type = self.context['transaction_type']
-
-        #updating account and categoty balance
-        if transaction_type == 'income':
-            account.balance += value
-            category.balance += value
-        else :
-            account.balance -= value
-            category.balance -= value
-        account.save()
-        category.save()
-
-        #saving the transaction
         return models.Transaction.objects.create(user_id=user_id, **validated_data)
 
 
