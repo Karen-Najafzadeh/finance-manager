@@ -83,6 +83,7 @@ class TransactionListCreateView(ListCreateAPIView):
     
     serializer_class = serializers.TransactionSerializer
 
+
 class TransactionsRetrieveDestroyAPIView(RetrieveDestroyAPIView):
     """
     A simple view to retrieve and delete a specified transaction of an authenticated user
@@ -94,3 +95,19 @@ class TransactionsRetrieveDestroyAPIView(RetrieveDestroyAPIView):
             raise PermissionDenied
         
     serializer_class = serializers.TransactionSerializer
+
+
+class AssetLiability(ModelViewSet):
+    """
+    A view to create, list, retrieve, update and destroy an asset_liability object.
+    """
+    def get_queryset(self):
+        if self.request.user.is_authenticated:
+            return models.AssetLiability.objects.filter(user_id  = self.request.user.id)
+        else:
+            raise PermissionDenied
+    
+    def get_serializer_context(self):
+        return {'user_id':self.request.user.id}
+    
+    serializer_class = serializers.AssetLiabilitySerializer
