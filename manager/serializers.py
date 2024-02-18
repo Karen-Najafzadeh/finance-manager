@@ -16,11 +16,10 @@ class UserSerializer(ModelSerializer):
 
 
 class CategorySerializer(ModelSerializer):
-    user = UserSerializer()
 
     class Meta:
         model = models.Category
-        fields = ['id','balance','balance','user','name']
+        fields = ['id','balance','balance','name']
     
     # here we assign the user id to the newly created category instance, automatically 
     def create(self, validated_data):
@@ -51,9 +50,10 @@ class TransactionSerializer(ModelSerializer):
 
 
 class AssetLiabilitySerializer(ModelSerializer):
+    user = UserSerializer(read_only = True)
     class Meta:
         model = models.AssetLiability
-        fields = '__all__' 
+        fields = ['name','description','type','value','period','account', 'user']
     
     # here we assign the user id to the newly created asset_liability instance, automatically 
     def create(self, validated_data):

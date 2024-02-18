@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'django_filters',
     'djoser',
     'core',
     'manager',
@@ -151,3 +152,10 @@ DJOSER = {
         'user_create':'core.serializers.UserCreateSerializer'
     }
 }
+
+#tokens
+#karen
+# eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEwNTk0OTEyLCJpYXQiOjE3MDgwMDI5MTIsImp0aSI6ImRlNjE5YmU5MWQ4ZTQwZTNhZGZjNzIwMzI1ZDUyNTA3IiwidXNlcl9pZCI6MX0.Odx3QcTnBudbqfsfapaZ5GvRTm99CjDiKA_m8Xdn-rQ
+
+#arian
+# eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEwODU4MjM2LCJpYXQiOjE3MDgyNjYyMzYsImp0aSI6IjM5NjViZGM0MzQ0YTQ4MDk4MGY2ZWY1ZDYyZWE3MmQyIiwidXNlcl9pZCI6Mn0.hoQ_vum_A40gZrxoZE1Vgxh5s3ZI6PPFihYLiVu4Bqc
